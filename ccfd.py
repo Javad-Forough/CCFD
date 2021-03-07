@@ -71,3 +71,8 @@ f1 = f1_score(y_test, output_new)
 print("Precision = ", precision)
 print("Recall = ", recall)
 print("F-measure = ", f1)
+
+# showing Precision-Recall curve
+precision, recall, _ = precision_recall_curve(y_test, output_2)
+pyplot.plot(recall, precision,color='blue', marker='.', label="ANN")
+pyplot.show()
