@@ -48,3 +48,6 @@ clf = Sequential()
 clf.add(Dense(100, activation='relu'))
 clf.add(Dense(10, activation='relu'))
 clf.add(Dense(1, activation='sigmoid'))
+
+#Compiling the ANN Model
+clf.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
