@@ -56,8 +56,8 @@ ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accura
 ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
 # predicting the class of each test instances
-output = ann_model.predict_classes(x_test)
-output_new = output[:, 0]
+predictions = ann_model.predict_classes(x_test)
+output_new = predictions[:, 0]
 
 # predicting the probability for each test instances
 output_2 = ann_model.predict(x_test)[:, 0]
