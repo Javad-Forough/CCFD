@@ -76,6 +76,8 @@ class Classifier:
         self.predict_class(self.x_test)
         # predicting the probability for each test instances
         self.predict_probs(self.x_test)
+        # Evaluating the model using Precision, Recall, and F1
+        self.evaluate(self.y_test, self.y_hat)
 
     def build(self):
         self.ann_model = Sequential()
@@ -97,6 +99,13 @@ class Classifier:
     def predict_probs(self, x_test):
         self.ann_probs = self.ann_model.predict(x_test)[:, 0]
 
+    def evaluate(self, y_test, y_hat):
+        self.precision = precision_score(y_test, y_hat)
+        self.recall = recall_score(y_test, y_hat)
+        self.f1 = f1_score(y_test, y_hat)
+        print("Precision = ", self.precision)
+        print("Recall = ", self.recall)
+        print("F-measure = ", self.f1)
 
 
 
@@ -106,15 +115,11 @@ class Classifier:
 
 
 
-# Evaluating the model using Precision, Recall, and F1
-precision = precision_score(y_test, y_hat)
-recall = recall_score(y_test, y_hat)
-f1 = f1_score(y_test, y_hat)
+
+
 
 # Showing the evaluation result
-print("Precision = ", precision)
-print("Recall = ", recall)
-print("F-measure = ", f1)
+
 
 # showing Precision-Recall curve
 precision, recall, _ = precision_recall_curve(y_test, ann_probs)
