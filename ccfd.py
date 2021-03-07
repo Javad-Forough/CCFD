@@ -10,3 +10,10 @@ from matplotlib import pyplot
 # Reading the data
 with open("Dataset/Data.txt", "rb") as fp:
     data_list = pickle.load(fp)
+
+# Splitting the data into feature vectors and labels
+x = []
+y = []
+for item in data_list:
+    x.append(item[:-1])
+    y.append(item[-1])
