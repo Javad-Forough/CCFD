@@ -43,3 +43,8 @@ x_test = np.array(x_test)
 
 # Defining the ANN classifer model and adding the layers
 clf = Sequential()
+
+# Adding three layers to our ANN
+clf.add(Dense(100, activation='relu'))
+clf.add(Dense(10, activation='relu'))
+clf.add(Dense(1, activation='sigmoid'))
