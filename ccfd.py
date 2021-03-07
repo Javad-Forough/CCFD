@@ -57,15 +57,15 @@ ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
 # predicting the class of each test instances
 predictions = ann_model.predict_classes(x_test)
-output_new = predictions[:, 0]
+y_hat = predictions[:, 0]
 
 # predicting the probability for each test instances
 output_2 = ann_model.predict(x_test)[:, 0]
 
 # Evaluating the model using Precision, Recall, and F1
-precision = precision_score(y_test, output_new)
-recall = recall_score(y_test, output_new)
-f1 = f1_score(y_test, output_new)
+precision = precision_score(y_test, y_hat)
+recall = recall_score(y_test, y_hat)
+f1 = f1_score(y_test, y_hat)
 
 # Showing the evaluation result
 print("Precision = ", precision)
