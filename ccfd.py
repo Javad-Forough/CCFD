@@ -55,6 +55,10 @@ clf.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 # Training the model on the training data
 clf.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
-# Performing the prediction
+# predicting the class of each test instances
 output = clf.predict_classes(x_test)
 output_new = output[:, 0]
+
+# predicting the probability of each test instances
+output_2 = clf.predict(x_test)[:, 0]
+
