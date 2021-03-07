@@ -60,7 +60,7 @@ predictions = ann_model.predict_classes(x_test)
 y_hat = predictions[:, 0]
 
 # predicting the probability for each test instances
-output_2 = ann_model.predict(x_test)[:, 0]
+ann_probs = ann_model.predict(x_test)[:, 0]
 
 # Evaluating the model using Precision, Recall, and F1
 precision = precision_score(y_test, y_hat)
@@ -73,6 +73,6 @@ print("Recall = ", recall)
 print("F-measure = ", f1)
 
 # showing Precision-Recall curve
-precision, recall, _ = precision_recall_curve(y_test, output_2)
+precision, recall, _ = precision_recall_curve(y_test, ann_probs)
 pyplot.plot(recall, precision,color='blue', marker='.', label="ANN")
 pyplot.show()
