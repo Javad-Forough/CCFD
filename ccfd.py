@@ -33,3 +33,10 @@ x_val = x[m:n]
 y_val = y[m:n]
 x_test = x[n:]
 y_test = y[n:]
+
+# Convert the data from List to numpy array
+x_train=np.array(x_train)
+y_train=np.array(y_train)
+x_val = np.array(x_val)
+y_val = np.array(y_val)
+x_test = np.array(x_test)
