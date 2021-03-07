@@ -51,3 +51,6 @@ clf.add(Dense(1, activation='sigmoid'))
 
 #Compiling the ANN Model
 clf.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Training the model on the training data
+clf.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
