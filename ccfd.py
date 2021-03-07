@@ -70,6 +70,8 @@ class Classifier:
         self.build()
         # Compiling the ANN Model
         self.compile()
+        # Training the model on the training data
+        self.train(self.x_train, self.x_val, self.y_train, self.y_val)
 
     def build(self):
         self.ann_model = Sequential()
@@ -81,11 +83,14 @@ class Classifier:
     def compile(self):
         self.ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
+    def train(self, x_train, x_val, y_train, y_val):
+        self.ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
 
 
-# Training the model on the training data
-ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
+
+
+
 
 # predicting the class of each test instances
 predictions = ann_model.predict_classes(x_test)
