@@ -67,3 +67,7 @@ precision = precision_score(y_test, output_new)
 recall = recall_score(y_test, output_new)
 f1 = f1_score(y_test, output_new)
 
+# Showing the evaluation result
+print("Precision = ", precision)
+print("Recall = ", recall)
+print("F-measure = ", f1)
