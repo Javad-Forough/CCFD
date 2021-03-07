@@ -10,12 +10,15 @@ from matplotlib import pyplot
 class Data:
     def __init__(self, path):
         self.path = path
-        
-# Reading the data
-with open("Dataset/Data.txt", "rb") as fp:
-    data_list = pickle.load(fp)
+        # Reading the data
+        self.read(path)
 
-# Splitting the data into feature vectors and labels
+    def read(self, path):
+        with open(path, "rb") as fp:
+            data_list = pickle.load(fp)
+        self.data = data_list
+
+    # Splitting the data into feature vectors and labels
 x = []
 y = []
 for item in data_list:
