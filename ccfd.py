@@ -23,3 +23,13 @@ scaler = StandardScaler()
 scaler.fit(x)
 x = scaler.transform(x)
 x = x.tolist()
+
+# Splitting the data into Train, Validation, and Test data
+m = int(0.7 * len(x))
+n = int(0.8 * len(x))
+x_train = x[:m]
+y_train = y[:m]
+x_val = x[m:n]
+y_val = y[m:n]
+x_test = x[n:]
+y_test = y[n:]
