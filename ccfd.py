@@ -68,6 +68,8 @@ class Classifier:
         self.y_test = y_test
         # Defining the ANN classifer model and adding the layers
         self.build()
+        # Compiling the ANN Model
+        self.compile()
 
     def build(self):
         self.ann_model = Sequential()
@@ -76,9 +78,11 @@ class Classifier:
         self.ann_model.add(Dense(10, activation='relu'))
         self.ann_model.add(Dense(1, activation='sigmoid'))
 
+    def compile(self):
+        self.ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-#Compiling the ANN Model
-ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+
 
 # Training the model on the training data
 ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
