@@ -42,25 +42,25 @@ y_val = np.array(y_val)
 x_test = np.array(x_test)
 
 # Defining the ANN classifer model and adding the layers
-clf = Sequential()
+ann_model = Sequential()
 
 # Adding three layers to our ANN
-clf.add(Dense(100, activation='relu'))
-clf.add(Dense(10, activation='relu'))
-clf.add(Dense(1, activation='sigmoid'))
+ann_model.add(Dense(100, activation='relu'))
+ann_model.add(Dense(10, activation='relu'))
+ann_model.add(Dense(1, activation='sigmoid'))
 
 #Compiling the ANN Model
-clf.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Training the model on the training data
-clf.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
+ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
 # predicting the class of each test instances
-output = clf.predict_classes(x_test)
+output = ann_model.predict_classes(x_test)
 output_new = output[:, 0]
 
 # predicting the probability for each test instances
-output_2 = clf.predict(x_test)[:, 0]
+output_2 = ann_model.predict(x_test)[:, 0]
 
 # Evaluating the model using Precision, Recall, and F1
 precision = precision_score(y_test, output_new)
