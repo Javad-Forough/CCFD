@@ -7,6 +7,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import auc, average_precision_score, recall_score, precision_score, accuracy_score, classification_report, precision_recall_curve,f1_score
 from matplotlib import pyplot
 
+class Data:
+    def __init__(self, path):
+        self.path = path
+        
 # Reading the data
 with open("Dataset/Data.txt", "rb") as fp:
     data_list = pickle.load(fp)
