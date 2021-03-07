@@ -78,6 +78,8 @@ class Classifier:
         self.predict_probs(self.x_test)
         # Evaluating the model using Precision, Recall, and F1
         self.evaluate(self.y_test, self.y_hat)
+        # showing Precision-Recall curve
+        self.show_pr_curve(self.y_test, self.ann_probs)
 
     def build(self):
         self.ann_model = Sequential()
@@ -103,9 +105,15 @@ class Classifier:
         self.precision = precision_score(y_test, y_hat)
         self.recall = recall_score(y_test, y_hat)
         self.f1 = f1_score(y_test, y_hat)
+        # Showing the evaluation result
         print("Precision = ", self.precision)
         print("Recall = ", self.recall)
         print("F-measure = ", self.f1)
+    
+    def show_pr_curve(self, y_test, ann_probs):
+        precision, recall, _ = precision_recall_curve(y_test, ann_probs)
+        pyplot.plot(recall, precision, color='blue', marker='.', label="ANN")
+        pyplot.show()
 
 
 
@@ -118,10 +126,8 @@ class Classifier:
 
 
 
-# Showing the evaluation result
 
 
-# showing Precision-Recall curve
-precision, recall, _ = precision_recall_curve(y_test, ann_probs)
-pyplot.plot(recall, precision,color='blue', marker='.', label="ANN")
-pyplot.show()
+
+
+
