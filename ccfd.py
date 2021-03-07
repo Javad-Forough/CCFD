@@ -11,7 +11,6 @@ from matplotlib import pyplot
 class Data:
     def __init__(self, path):
         self.path = path
-        # Reading the data
         self.data = []
         self.x = []
         self.y = []
@@ -21,13 +20,16 @@ class Data:
         self.y_val = []
         self.x_test = []
         self.y_test = []
+        self.test_ratio = 80  # From 0 to 100
+        self.val_ratio = 10  # From 0 to 100
+        # Reading the data
         self.read(path)
         # Splitting the data into feature vectors and labels
         self.split_features_labels(self.data)
         # Scaling the data and make it ready to be used by ML models
         self.normalize()
         # Splitting the data into Train, Validation, and Test data
-        self.split_train_val_test()
+        self.split_train_val_test(self.test_ratio, self.val_ratio)
         # Convert the data from List to numpy array
         self.list_to_array()
 
@@ -75,11 +77,13 @@ class Classifier:
         self.y_test = y_test
         self.predictions = []
         self.y_hat = []
+        self.list_of_nodes = [100, 10, 1]
+        self.list_of_activations = ['relu', 'relu', 'sigmoid']
         self.precision = 0
         self.recall = 0
         self.f1 = 0
         # Defining the ANN classifer model and adding the layers
-        self.build()
+        self.build(self.list_of_nodes, self.list_of_activations)
         # Compiling the ANN Model
         self.compile()
         # Training the model on the training data
@@ -93,12 +97,16 @@ class Classifier:
         # showing Precision-Recall curve
         self.show_pr_curve(self.y_test, self.ann_probs)
 
-    def build(self):
+    def build(self, list_of_nodes, list_of_activations):
+        self.list_of_nodes = list_of_nodes
+        self.list_of_activations = list_of_activations
         self.ann_model = Sequential()
-        # Adding three layers to our ANN
-        self.ann_model.add(Dense(100, activation='relu'))
-        self.ann_model.add(Dense(10, activation='relu'))
-        self.ann_model.add(Dense(1, activation='sigmoid'))
+        # Adding layers to the ANN
+        for i in range(len(list_of_nodes)):
+            self.ann_model.add(Dense(list_of_nodes[i], activation=list_of_activations[i]))
+        # self.ann_model.add(Dense(100, activation='relu'))
+        # self.ann_model.add(Dense(10, activation='relu'))
+        # self.ann_model.add(Dense(1, activation='sigmoid'))
 
     def compile(self):
         self.ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
