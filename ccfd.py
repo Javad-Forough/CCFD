@@ -11,19 +11,23 @@ class Data:
     def __init__(self, path):
         self.path = path
         # Reading the data
+        self.data = []
         self.read(path)
+        # Splitting the data into feature vectors and labels
+        self.x = []
+        self.y = []
+        self.split_features_labels(self.data)
 
     def read(self, path):
         with open(path, "rb") as fp:
             data_list = pickle.load(fp)
         self.data = data_list
 
-    # Splitting the data into feature vectors and labels
-x = []
-y = []
-for item in data_list:
-    x.append(item[:-1])
-    y.append(item[-1])
+    def split_features_labels(self, raw_data):
+        for item in raw_data:
+            self.x.append(item[:-1])
+            self.y.append(item[-1])
+
 
 # Scaling the data and make it ready to be used by ML models
 scaler = StandardScaler()
