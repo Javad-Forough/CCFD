@@ -47,9 +47,9 @@ class Data:
         self.x = scaler.transform(self.x)
         self.x = self.x.tolist()
 
-    def split_train_val_test(self):
-        m = int(0.7 * len(self.x))
-        n = int(0.8 * len(self.x))
+    def split_train_val_test(self, test_ratio, val_ratio):
+        m = int(((100 - (test_ratio + val_ratio))/100)*len(self.x))
+        n = int(((100 - test_ratio)/100)*len(self.x))
         self.x_train = self.x[:m]
         self.y_train = self.y[:m]
         self.x_val = self.x[m:n]
