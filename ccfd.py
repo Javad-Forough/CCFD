@@ -19,6 +19,18 @@ class Data:
         self.split_features_labels(self.data)
         # Scaling the data and make it ready to be used by ML models
         self.normalize()
+        # Splitting the data into Train, Validation, and Test data
+        self.split_train_val_test()
+
+    def split_train_val_test(self):
+        m = int(0.7 * len(self.x))
+        n = int(0.8 * len(self.x))
+        self.x_train = self.x[:m]
+        self.y_train = self.y[:m]
+        self.x_val = self.x[m:n]
+        self.y_val = self.y[m:n]
+        self.x_test = self.x[n:]
+        self.y_test = self.y[n:]
 
     def read(self, path):
         with open(path, "rb") as fp:
@@ -39,15 +51,7 @@ class Data:
 
 
 
-# Splitting the data into Train, Validation, and Test data
-m = int(0.7 * len(x))
-n = int(0.8 * len(x))
-x_train = x[:m]
-y_train = y[:m]
-x_val = x[m:n]
-y_val = y[m:n]
-x_test = x[n:]
-y_test = y[n:]
+
 
 # Convert the data from List to numpy array
 x_train=np.array(x_train)
