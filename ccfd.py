@@ -17,3 +17,9 @@ y = []
 for item in data_list:
     x.append(item[:-1])
     y.append(item[-1])
+
+# Scaling the data and make it ready to be used by ML models
+scaler = StandardScaler()
+scaler.fit(x)
+x = scaler.transform(x)
+x = x.tolist()
