@@ -21,16 +21,8 @@ class Data:
         self.normalize()
         # Splitting the data into Train, Validation, and Test data
         self.split_train_val_test()
-
-    def split_train_val_test(self):
-        m = int(0.7 * len(self.x))
-        n = int(0.8 * len(self.x))
-        self.x_train = self.x[:m]
-        self.y_train = self.y[:m]
-        self.x_val = self.x[m:n]
-        self.y_val = self.y[m:n]
-        self.x_test = self.x[n:]
-        self.y_test = self.y[n:]
+        # Convert the data from List to numpy array
+        self.list_to_array()
 
     def read(self, path):
         with open(path, "rb") as fp:
@@ -47,6 +39,23 @@ class Data:
         scaler.fit(self.x)
         self.x = scaler.transform(self.x)
         self.x = self.x.tolist()
+
+    def split_train_val_test(self):
+        m = int(0.7 * len(self.x))
+        n = int(0.8 * len(self.x))
+        self.x_train = self.x[:m]
+        self.y_train = self.y[:m]
+        self.x_val = self.x[m:n]
+        self.y_val = self.y[m:n]
+        self.x_test = self.x[n:]
+        self.y_test = self.y[n:]
+
+    def list_to_array(self):
+        self.x_train = np.array(self.x_train)
+        self.y_train = np.array(self.y_train)
+        self.x_val = np.array(self.x_val)
+        self.y_val = np.array(self.y_val)
+        self.x_test = np.array(self.x_test)
 
 
 
