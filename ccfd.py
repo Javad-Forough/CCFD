@@ -7,15 +7,22 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import auc, average_precision_score, recall_score, precision_score, accuracy_score, classification_report, precision_recall_curve,f1_score
 from matplotlib import pyplot
 
+
 class Data:
     def __init__(self, path):
         self.path = path
         # Reading the data
         self.data = []
-        self.read(path)
-        # Splitting the data into feature vectors and labels
         self.x = []
         self.y = []
+        self.x_train = []
+        self.y_train = []
+        self.x_val = []
+        self.y_val = []
+        self.x_test = []
+        self.y_test = []
+        self.read(path)
+        # Splitting the data into feature vectors and labels
         self.split_features_labels(self.data)
         # Scaling the data and make it ready to be used by ML models
         self.normalize()
@@ -66,6 +73,11 @@ class Classifier:
         self.y_val = y_val
         self.x_test = x_test
         self.y_test = y_test
+        self.predictions = []
+        self.y_hat = []
+        self.precision = 0
+        self.recall = 0
+        self.f1 = 0
         # Defining the ANN classifer model and adding the layers
         self.build()
         # Compiling the ANN Model
@@ -95,8 +107,8 @@ class Classifier:
         self.ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
     def predict_class(self, x_test):
-        predictions = self.ann_model.predict_classes(x_test)
-        self.y_hat = predictions[:, 0]
+        self.predictions = self.ann_model.predict_classes(x_test)
+        self.y_hat = self.predictions[:, 0]
 
     def predict_probs(self, x_test):
         self.ann_probs = self.ann_model.predict(x_test)[:, 0]
@@ -109,14 +121,15 @@ class Classifier:
         print("Precision = ", self.precision)
         print("Recall = ", self.recall)
         print("F-measure = ", self.f1)
-    
+
     def show_pr_curve(self, y_test, ann_probs):
         precision, recall, _ = precision_recall_curve(y_test, ann_probs)
         pyplot.plot(recall, precision, color='blue', marker='.', label="ANN")
         pyplot.show()
 
 
-
+if __name__ == "__main__":
+    pass
 
 
 
