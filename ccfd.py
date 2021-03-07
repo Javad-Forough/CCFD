@@ -40,3 +40,6 @@ y_train=np.array(y_train)
 x_val = np.array(x_val)
 y_val = np.array(y_val)
 x_test = np.array(x_test)
+
+# Defining the ANN classifer model and adding the layers
+clf = Sequential()
