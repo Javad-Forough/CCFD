@@ -72,6 +72,9 @@ class Classifier:
         self.compile()
         # Training the model on the training data
         self.train(self.x_train, self.x_val, self.y_train, self.y_val)
+        # predicting the class of each test instances
+        self.predict_class(self.x_test)
+
 
     def build(self):
         self.ann_model = Sequential()
@@ -86,15 +89,16 @@ class Classifier:
     def train(self, x_train, x_val, y_train, y_val):
         self.ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 
+    def predict_class(self, x_test):
+        predictions = self.ann_model.predict_classes(x_test)
+        y_hat = predictions[:, 0]
 
 
 
 
 
 
-# predicting the class of each test instances
-predictions = ann_model.predict_classes(x_test)
-y_hat = predictions[:, 0]
+
 
 # predicting the probability for each test instances
 ann_probs = ann_model.predict(x_test)[:, 0]
