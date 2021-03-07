@@ -60,16 +60,22 @@ class Data:
 
 class Classifier:
     def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test):
-        pass
+        self.x_train = x_train
+        self.y_train = y_train
+        self.x_val = x_val
+        self.y_val = y_val
+        self.x_test = x_test
+        self.y_test = y_test
+        # Defining the ANN classifer model and adding the layers
+        self.build()
 
+    def build(self):
+        self.ann_model = Sequential()
+        # Adding three layers to our ANN
+        self.ann_model.add(Dense(100, activation='relu'))
+        self.ann_model.add(Dense(10, activation='relu'))
+        self.ann_model.add(Dense(1, activation='sigmoid'))
 
-# Defining the ANN classifer model and adding the layers
-ann_model = Sequential()
-
-# Adding three layers to our ANN
-ann_model.add(Dense(100, activation='relu'))
-ann_model.add(Dense(10, activation='relu'))
-ann_model.add(Dense(1, activation='sigmoid'))
 
 #Compiling the ANN Model
 ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
