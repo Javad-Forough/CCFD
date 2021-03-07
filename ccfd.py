@@ -59,6 +59,11 @@ clf.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
 output = clf.predict_classes(x_test)
 output_new = output[:, 0]
 
-# predicting the probability of each test instances
+# predicting the probability for each test instances
 output_2 = clf.predict(x_test)[:, 0]
+
+# Evaluating the model using Precision, Recall, and F1
+precision = precision_score(y_test, output_new)
+recall = recall_score(y_test, output_new)
+f1 = f1_score(y_test, output_new)
 
