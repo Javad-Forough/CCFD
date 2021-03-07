@@ -17,6 +17,8 @@ class Data:
         self.x = []
         self.y = []
         self.split_features_labels(self.data)
+        # Scaling the data and make it ready to be used by ML models
+        self.normalize()
 
     def read(self, path):
         with open(path, "rb") as fp:
@@ -28,12 +30,14 @@ class Data:
             self.x.append(item[:-1])
             self.y.append(item[-1])
 
+    def normalize(self):
+        scaler = StandardScaler()
+        scaler.fit(self.x)
+        self.x = scaler.transform(self.x)
+        self.x = self.x.tolist()
 
-# Scaling the data and make it ready to be used by ML models
-scaler = StandardScaler()
-scaler.fit(x)
-x = scaler.transform(x)
-x = x.tolist()
+
+
 
 # Splitting the data into Train, Validation, and Test data
 m = int(0.7 * len(x))
