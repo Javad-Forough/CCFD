@@ -58,16 +58,10 @@ class Data:
         self.x_test = np.array(self.x_test)
 
 
+class Classifier:
+    def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test):
+        pass
 
-
-
-
-# Convert the data from List to numpy array
-x_train=np.array(x_train)
-y_train=np.array(y_train)
-x_val = np.array(x_val)
-y_val = np.array(y_val)
-x_test = np.array(x_test)
 
 # Defining the ANN classifer model and adding the layers
 ann_model = Sequential()
