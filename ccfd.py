@@ -22,24 +22,14 @@ class Data:
         self.y_test = []
         self.test_ratio = 80  # From 0 to 100
         self.val_ratio = 10  # From 0 to 100
-        # Reading the data
-        self.read(path)
-        # Splitting the data into feature vectors and labels
-        self.split_features_labels(self.data)
-        # Scaling the data and make it ready to be used by ML models
-        self.normalize()
-        # Splitting the data into Train, Validation, and Test data
-        self.split_train_val_test(self.test_ratio, self.val_ratio)
-        # Convert the data from List to numpy array
-        self.list_to_array()
 
-    def read(self, path):
-        with open(path, "rb") as fp:
+    def read(self, ):
+        with open(self.path, "rb") as fp:
             data_list = pickle.load(fp)
         self.data = data_list
 
-    def split_features_labels(self, raw_data):
-        for item in raw_data:
+    def split_features_labels(self):
+        for item in self.data:
             self.x.append(item[:-1])
             self.y.append(item[-1])
 
@@ -83,20 +73,6 @@ class Classifier:
         self.precision = 0
         self.recall = 0
         self.f1 = 0
-        # Defining the ANN classifer model and adding the layers
-        self.build(self.list_of_nodes, self.list_of_activations)
-        # Compiling the ANN Model
-        self.compile()
-        # Training the model on the training data
-        self.train(self.x_train, self.x_val, self.y_train, self.y_val)
-        # predicting the class of each test instances
-        self.predict_class(self.x_test)
-        # predicting the probability for each test instances
-        self.predict_probs(self.x_test)
-        # Evaluating the model using Precision, Recall, and F1
-        self.evaluate(self.y_test, self.y_hat)
-        # showing Precision-Recall curve
-        self.show_pr_curve(self.y_test, self.ann_probs)
 
     def build(self, list_of_nodes, list_of_activations):
         self.list_of_nodes = list_of_nodes
@@ -112,36 +88,66 @@ class Classifier:
     def compile(self):
         self.ann_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    def train(self, x_train, x_val, y_train, y_val):
-        self.ann_model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=1)
+    def train(self):
+        self.ann_model.fit(self.x_train, self.y_train, validation_data=(self.x_val, self.y_val), epochs=self.epoches)
 
-    def predict_class(self, x_test):
-        self.predictions = self.ann_model.predict_classes(x_test)
+    def predict_class(self):
+        self.predictions = self.ann_model.predict_classes(self.x_test)
         self.y_hat = self.predictions[:, 0]
 
-    def predict_probs(self, x_test):
-        self.ann_probs = self.ann_model.predict(x_test)[:, 0]
+    def predict_probs(self):
+        self.ann_probs = self.ann_model.predict(self.x_test)[:, 0]
 
-    def evaluate(self, y_test, y_hat):
-        self.precision = precision_score(y_test, y_hat)
-        self.recall = recall_score(y_test, y_hat)
-        self.f1 = f1_score(y_test, y_hat)
+    def evaluate(self):
+        self.precision = precision_score(self.y_test, self.y_hat)
+        self.recall = recall_score(self.y_test, self.y_hat)
+        self.f1 = f1_score(self.y_test, self.y_hat)
         # Showing the evaluation result
         print("Precision = ", self.precision)
         print("Recall = ", self.recall)
         print("F-measure = ", self.f1)
 
-    def show_pr_curve(self, y_test, ann_probs):
-        precision, recall, _ = precision_recall_curve(y_test, ann_probs)
-        pyplot.plot(recall, precision, color='blue', marker='.', label="ANN")
+    def show_pr_curve(self):
+        precision, recall, _ = precision_recall_curve(self.y_test, self.ann_probs)
+        pyplot.plot(recall, precision, color='lime', linestyle="--", label="ANN")
+        pyplot.grid(True)
         pyplot.show()
 
 
 if __name__ == "__main__":
     mydata = Data("Dataset/Data.txt")
+    # Reading the data
+    mydata.read()
+    # Splitting the data into feature vectors and labels
+    mydata.split_features_labels()
+    # Scaling the data and make it ready to be used by ML models
+    mydata.normalize()
+    # Splitting the data into Train, Validation, and Test data
+    mydata.split_train_val_test(mydata.test_ratio, mydata.val_ratio)
+    # Convert the data from List to numpy array
+    mydata.list_to_array()
+
     myann = Classifier(mydata.x_train, mydata.y_train,
                        mydata.x_val, mydata.y_val, mydata.x_test,
-                       mydata.y_test, [100, 10, 1], ['relu', 'relu', 'sigmoid'])
+                       mydata.y_test, list_of_nodes=[100, 10, 1],
+                       list_of_activations=['relu', 'relu', 'sigmoid'],
+                       epoches=3)
+
+    # Defining the ANN classifer model and adding the layers
+    myann.build(myann.list_of_nodes, myann.list_of_activations)
+    # Compiling the ANN Model
+    myann.compile()
+    # Training the model on the training data
+    myann.train()
+    # predicting the class of each test instances
+    myann.predict_class()
+    # predicting the probability for each test instances
+    myann.predict_probs()
+    # Evaluating the model using Precision, Recall, and F1
+    myann.evaluate()
+    # showing Precision-Recall curve
+    myann.show_pr_curve()
+
 
 
 
