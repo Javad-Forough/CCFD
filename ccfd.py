@@ -68,7 +68,7 @@ class Data:
 
 
 class Classifier:
-    def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test, list_of_nodes, list_of_activations):
+    def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test, list_of_nodes, list_of_activations, epoches):
         self.x_train = x_train
         self.y_train = y_train
         self.x_val = x_val
@@ -79,6 +79,7 @@ class Classifier:
         self.y_hat = []
         self.list_of_nodes = list_of_nodes
         self.list_of_activations = list_of_activations
+        self.epoches = epoches
         self.precision = 0
         self.recall = 0
         self.f1 = 0
