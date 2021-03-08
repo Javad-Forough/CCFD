@@ -23,7 +23,7 @@ class Data:
         self.test_ratio = 80  # From 0 to 100
         self.val_ratio = 10  # From 0 to 100
 
-    def read(self, ):
+    def read(self):
         with open(self.path, "rb") as fp:
             data_list = pickle.load(fp)
         self.data = data_list
