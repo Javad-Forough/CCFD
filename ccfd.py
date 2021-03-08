@@ -68,7 +68,7 @@ class Data:
 
 
 class Classifier:
-    def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test):
+    def __init__(self, x_train, y_train, x_val, y_val, x_test, y_test, list_of_nodes, list_of_activations):
         self.x_train = x_train
         self.y_train = y_train
         self.x_val = x_val
@@ -77,8 +77,8 @@ class Classifier:
         self.y_test = y_test
         self.predictions = []
         self.y_hat = []
-        self.list_of_nodes = [100, 10, 1]
-        self.list_of_activations = ['relu', 'relu', 'sigmoid']
+        self.list_of_nodes = list_of_nodes
+        self.list_of_activations = list_of_activations
         self.precision = 0
         self.recall = 0
         self.f1 = 0
@@ -137,7 +137,11 @@ class Classifier:
 
 
 if __name__ == "__main__":
-    pass
+    mydata = Data("Dataset/Data.txt")
+    myann = Classifier(mydata.x_train, mydata.y_train,
+                       mydata.x_val, mydata.y_val, mydata.x_test,
+                       mydata.y_test, [100, 10, 1], ['relu', 'relu', 'sigmoid'])
+
 
 
 
