@@ -105,7 +105,9 @@ class TestClassifier(unittest.TestCase):
         self.assertEqual(len(self.annmodel.y_hat), len(self.annmodel.x_test))
 
     def test_predict_probs(self):
-
+        """
+        Test if length of predictions (ann_probs) is equal to the number of test instances 
+        """
         self.annmodel.build(list_of_nodes=[100, 10, 1], list_of_activations=['relu', 'relu', 'sigmoid'])
         self.annmodel.compile()
         self.annmodel.train(epochs=1)
