@@ -67,7 +67,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(type(self.mydata.x_train), type(a))
 
     def test_isinstance(self):
-
+        """
+        Test if the used data is an instance of class Data 
+        """
         self.assertIsInstance(self.mydata, Data)
 
 
