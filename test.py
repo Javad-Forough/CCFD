@@ -86,7 +86,9 @@ class TestClassifier(unittest.TestCase):
                                    self.mydata.y_test)
 
     def test_build(self):
-
+        """
+        Test if the number of layers is equal to the length of the list_of_nodes 
+        """
         list_of_nodes = [100, 10, 1]
         list_of_activations = ['relu', 'relu', 'sigmoid']
         self.annmodel.build(list_of_nodes, list_of_activations)
