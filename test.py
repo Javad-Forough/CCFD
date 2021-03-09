@@ -41,7 +41,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(self.mydata.x_train, x_train)
 
     def test_split_train_val_test_2(self):
-
+        """
+        Test if the function produce a correct amount of x_val data based on test_ratio and val_ratio
+        """
         self.mydata.x = [1,2,3,4,5,6,7,8,9,10]
         x_val = [8]
         self.mydata.split_train_val_test(test_ratio=20, val_ratio=10)
