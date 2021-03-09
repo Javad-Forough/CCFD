@@ -7,7 +7,9 @@ class TestData(unittest.TestCase):
         self.mydata = Data("Dataset/Data.txt")
 
     def test_read(self):
-
+        """
+        Test if after running the method read, type of mydata.data is List
+        """
         self.mydata.read()
         self.assertEqual(type(self.mydata.data), list)
 
@@ -93,7 +95,7 @@ class TestClassifier(unittest.TestCase):
         self.assertEqual(len(self.annmodel.ann_probs), len(self.annmodel.x_test))
 
     def test_isinstance(self):
-        
+
         self.assertIsInstance(self.annmodel, Classifier)
 
 
