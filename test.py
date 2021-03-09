@@ -59,7 +59,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(self.mydata.x_test, x_test)
 
     def test_list_to_array(self):
-
+        """
+        Test if the type of data is numpy array after performing list_to_array() function 
+        """
         a = np.array([1])
         self.mydata.list_to_array()
         self.assertEqual(type(self.mydata.x_train), type(a))
