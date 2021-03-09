@@ -2,7 +2,6 @@ import unittest
 from ccfd import Data, Classifier
 import numpy as np
 
-
 class TestData(unittest.TestCase):
     def setUp(self):
         self.mydata = Data("Dataset/Data.txt")
@@ -61,14 +60,60 @@ class TestData(unittest.TestCase):
 
     def test_list_to_array(self):
         """
-        Test if the type of data is numpy array after performing list_to_array() function
-        :return: 
+        Test if the type of data is numpy array after performing list_to_array() function 
         """
         a = np.array([1])
         self.mydata.list_to_array()
         self.assertEqual(type(self.mydata.x_train), type(a))
 
+    def test_isinstance(self):
+        self.assertIsInstance(self.mydata, Data)
 
 
+class TestClassifier(unittest.TestCase):
+    def setUp(self):
+        self.mydata = Data("Dataset/Data.txt")
+        self.mydata.read()
+        self.mydata.split_features_labels()
+        self.mydata.normalize()
+        self.mydata.split_train_val_test(test_ratio=20, val_ratio=10)
+        self.mydata.list_to_array()
+        self.annmodel = Classifier(self.mydata.x_train, self.mydata.y_train,
+                                   self.mydata.x_val, self.mydata.y_val, self.mydata.x_test,
+                                   self.mydata.y_test)
+
+    def test_build(self):
+        """
+        Test if the number of layers is equal to the length of the list_of_nodes 
+        """
+        list_of_nodes = [100, 10, 1]
+        list_of_activations = ['relu', 'relu', 'sigmoid']
+        self.annmodel.build(list_of_nodes, list_of_activations)
+        self.assertEqual(len(self.annmodel.ann_model.layers), len(list_of_nodes))
+
+    def test_predict_class(self):
+        """
+        Test if length of predictions (y_hat) is equal to the number of test instances 
+        """
+        self.annmodel.build(list_of_nodes=[100, 10, 1], list_of_activations=['relu', 'relu', 'sigmoid'])
+        self.annmodel.compile()
+        self.annmodel.train(epochs=1)
+        self.annmodel.predict_class()
+        self.assertEqual(len(self.annmodel.y_hat), len(self.annmodel.x_test))
+
+    def test_predict_probs(self):
+        """
+        Test if length of predictions (ann_probs) is equal to the number of test instances 
+        """
+        self.annmodel.build(list_of_nodes=[100, 10, 1], list_of_activations=['relu', 'relu', 'sigmoid'])
+        self.annmodel.compile()
+        self.annmodel.train(epochs=1)
+        self.annmodel.predict_probs()
+        self.assertEqual(len(self.annmodel.ann_probs), len(self.annmodel.x_test))
+
+    def test_isinstance(self):
+        self.assertIsInstance(self.annmodel, Classifier)
+
+'__main__.Data'
 if __name__ == '__main__':
     unittest.main()
