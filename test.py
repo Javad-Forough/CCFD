@@ -14,7 +14,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(type(self.mydata.data), list)
 
     def test_split_features_labels(self):
-
+        """
+        Test if the number of feature vectors is equal to number of labels after running split_feature_labels
+        """
         self.mydata.read()
         self.mydata.split_features_labels()
         self.assertEqual(len(self.mydata.x), len(self.mydata.y))
