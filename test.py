@@ -67,6 +67,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(type(self.mydata.x_train), type(a))
 
     def test_isinstance(self):
+        """
+        Test if the used data is an instance of class Data 
+        """
         self.assertIsInstance(self.mydata, Data)
 
 
@@ -112,8 +115,11 @@ class TestClassifier(unittest.TestCase):
         self.assertEqual(len(self.annmodel.ann_probs), len(self.annmodel.x_test))
 
     def test_isinstance(self):
+        """
+        Test if the evaluated model is an instance of class Classifier 
+        """
         self.assertIsInstance(self.annmodel, Classifier)
 
-'__main__.Data'
+
 if __name__ == '__main__':
     unittest.main()
