@@ -22,7 +22,9 @@ class TestData(unittest.TestCase):
         self.assertEqual(len(self.mydata.x), len(self.mydata.y))
 
     def test_normalize(self):
-
+        """
+        Test if the size of x remains the same after normalization
+        """
         self.mydata.read()
         self.mydata.split_features_labels()
         tmp = self.mydata.x
